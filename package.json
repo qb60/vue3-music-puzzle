@@ -1,0 +1,31 @@
+{
+  "name": "music-puzzle3",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "host": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --port 5050",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "plyr": "3.6.12",
+    "vue": "3.2.31",
+    "vue-router": "4.0.12"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "1.1.0",
+    "@vitejs/plugin-vue": "2.2.0",
+    "@vue/eslint-config-prettier": "7.0.0",
+    "autoprefixer": "^10.4.4",
+    "eslint": "8.9.0",
+    "eslint-plugin-vue": "8.4.1",
+    "jest": "27.5.1",
+    "naive-ui": "^2.26.4",
+    "postcss": "^8.4.12",
+    "prettier": "2.5.1",
+    "rollup-plugin-visualizer": "^5.6.0",
+    "tailwindcss": "^3.0.23",
+    "vite": "2.8.3"
+  }
+}
