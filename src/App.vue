@@ -2,15 +2,7 @@
   <n-config-provider :theme="theme">
     <div class="app flex justify-center mx-0 sm:mx-6">
       <div class="flex-1 max-w-5xl">
-        <n-card>
-          <div class="flex justify-between">
-            <span>M-P</span>
-            <div>
-              <span class="px-3">Light mode</span>
-              <n-switch v-model:value="isDarkTheme" />
-            </div>
-          </div>
-        </n-card>
+        <main-header v-model="isDarkTheme" />
         <n-card class="puzzle">
           <div
             class="puzzle__element"
@@ -51,12 +43,12 @@ import {
   NConfigProvider,
   NGlobalStyle,
   NSelect,
-  NSwitch,
   NCard,
   NDivider,
   NButton,
 } from "naive-ui";
 import AudioPlayer from "./components/AudioPlayer.vue";
+import MainHeader from "./components/MainHeader.vue";
 
 const tracks = [
   { id: 0, path: "tracks/1.mp3" },
@@ -82,14 +74,14 @@ const languages = [
 
 export default {
   components: {
-    AudioPlayer,
     NConfigProvider,
     NGlobalStyle,
     NSelect,
-    NSwitch,
     NCard,
     NDivider,
     NButton,
+    AudioPlayer,
+    MainHeader,
   },
   setup() {
     const isDarkTheme = ref(false);
