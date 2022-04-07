@@ -5,7 +5,7 @@
         <span>M-P</span>
         <div>
           <span class="px-3">Light mode</span>
-          <n-switch v-model="value" />
+          <n-switch v-model:value="value" />
         </div>
       </div>
     </n-card>
