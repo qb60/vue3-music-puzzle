@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme="theme">
+  <n-config-provider :theme="theme" :theme-overrides="themeOverrides">
     <div class="app flex justify-center mx-0 sm:mx-6">
       <div class="flex-1 max-w-5xl">
         <main-header v-model="isDarkTheme" />
@@ -72,6 +72,18 @@ const languages = [
   "Ukrainian",
 ];
 
+/**
+ * Use this for type hints under js file
+ * @type import('naive-ui').GlobalThemeOverrides
+ */
+const lightThemeOverrides = {
+  common: {
+    dividerColor: "#bbbbbb",
+    borderColor: "#cccccc",
+  },
+  // ...
+};
+
 export default {
   components: {
     NConfigProvider,
@@ -86,6 +98,9 @@ export default {
   setup() {
     const isDarkTheme = ref(false);
     const theme = computed(() => (isDarkTheme.value ? null : darkTheme));
+    const themeOverrides = computed(() =>
+      isDarkTheme.value ? lightThemeOverrides : null
+    );
 
     const availableLanguages = ref([]);
 
@@ -106,6 +121,7 @@ export default {
     const stopOtherPlayers = (trackId) => {};
 
     return {
+      themeOverrides,
       isDarkTheme,
       theme,
       tracks,
