@@ -9,22 +9,12 @@
             v-for="(track, index) of tracks"
             :key="track.id"
           >
-            <div class="text-center text-lg">Track {{ index + 1 }}</div>
-            <AudioPlayer :src="track.path" />
-            <div class="flex items-center">
-              <n-select
-                clearable
-                :options="
-                  availableLanguages.map((item) => ({
-                    label: item,
-                    value: item,
-                  }))
-                "
-                placeholder="Select language"
-              />
-              <n-button class="ml-3">Reset</n-button>
-            </div>
-            <n-divider />
+            <PuzzleElement
+              :languages="availableLanguages"
+              :track-path="track.path"
+              :number="index"
+              @language-changed="onLanguageChanged"
+            />
           </div>
           <div class="flex justify-end">
             <n-button type="success">Submit result</n-button>
@@ -42,13 +32,12 @@ import {
   darkTheme,
   NConfigProvider,
   NGlobalStyle,
-  NSelect,
   NCard,
-  NDivider,
   NButton,
 } from "naive-ui";
-import AudioPlayer from "./components/AudioPlayer.vue";
+
 import MainHeader from "./components/MainHeader.vue";
+import PuzzleElement from "./components/puzzle/PuzzleElement.vue";
 
 const tracks = [
   { id: 0, path: "tracks/1.mp3" },
@@ -81,19 +70,16 @@ const lightThemeOverrides = {
     dividerColor: "#bbbbbb",
     borderColor: "#cccccc",
   },
-  // ...
 };
 
 export default {
   components: {
     NConfigProvider,
     NGlobalStyle,
-    NSelect,
     NCard,
-    NDivider,
     NButton,
-    AudioPlayer,
     MainHeader,
+    PuzzleElement,
   },
   setup() {
     const isDarkTheme = ref(false);
@@ -108,14 +94,17 @@ export default {
       availableLanguages.value.push(...languages);
     });
 
-    const onLanguageSelected = (language) => {
-      availableLanguages.value = availableLanguages.value.filter(
-        (lang) => lang !== language
-      );
-    };
-
-    const onLanguageUnselected = (language) => {
-      availableLanguages.value = [...availableLanguages.value, language];
+    const onLanguageChanged = (newLanguage, oldLanguage) => {
+      if (newLanguage) {
+        availableLanguages.value = availableLanguages.value.filter(
+          (lang) => lang !== newLanguage
+        );
+      } else {
+        availableLanguages.value = [
+          ...availableLanguages.value,
+          oldLanguage,
+        ].sort();
+      }
     };
 
     const stopOtherPlayers = (trackId) => {};
@@ -126,7 +115,7 @@ export default {
       theme,
       tracks,
       availableLanguages,
-      onLanguageSelected,
+      onLanguageChanged,
       stopOtherPlayers,
     };
   },

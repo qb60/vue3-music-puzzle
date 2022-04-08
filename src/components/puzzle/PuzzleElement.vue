@@ -1,0 +1,60 @@
+<template>
+  <div class="text-center text-lg">Track {{ number + 1 }}</div>
+  <AudioPlayer :src="trackPath" />
+  <div class="flex items-center">
+    <n-select
+      clearable
+      placeholder="Select language"
+      v-model:value="selectedLanguage"
+      :options="
+        languages.map((item) => ({
+          label: item,
+          value: item,
+        }))
+      "
+    />
+    <n-button class="ml-3">Reset</n-button>
+  </div>
+  <n-divider />
+</template>
+
+<script>
+import { NButton, NDivider, NSelect } from "naive-ui";
+import AudioPlayer from "./AudioPlayer.vue";
+import { ref, watch } from "vue";
+
+export const Events = {
+  LANGUAGE_CHANGED: "language-changed",
+};
+
+export default {
+  name: "PuzzleElement",
+  components: { NSelect, NDivider, NButton, AudioPlayer },
+  props: {
+    number: {
+      type: Number,
+      required: true,
+    },
+    trackPath: {
+      type: String,
+      required: true,
+    },
+    languages: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: [Events.LANGUAGE_CHANGED],
+  setup(_, ctx) {
+    const selectedLanguage = ref(null);
+
+    watch(selectedLanguage, (newLanguage, oldLanguage) => {
+      ctx.emit(Events.LANGUAGE_CHANGED, newLanguage, oldLanguage);
+    });
+
+    return { selectedLanguage };
+  },
+};
+</script>
+
+<style scoped></style>
