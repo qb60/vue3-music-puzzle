@@ -13,7 +13,7 @@
         }))
       "
     />
-    <n-button class="ml-3">Reset</n-button>
+    <n-button class="ml-3" @click="onResetButtonClicked">Reset</n-button>
   </div>
   <n-divider />
 </template>
@@ -52,7 +52,11 @@ export default {
       ctx.emit(Events.LANGUAGE_CHANGED, newLanguage, oldLanguage);
     });
 
-    return { selectedLanguage };
+    const onResetButtonClicked = () => {
+      selectedLanguage.value = null;
+    };
+
+    return { selectedLanguage, onResetButtonClicked };
   },
 };
 </script>
