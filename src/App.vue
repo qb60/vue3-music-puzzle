@@ -99,7 +99,8 @@ export default {
         availableLanguages.value = availableLanguages.value.filter(
           (lang) => lang !== newLanguage
         );
-      } else {
+      }
+      if (oldLanguage) {
         availableLanguages.value = [
           ...availableLanguages.value,
           oldLanguage,
