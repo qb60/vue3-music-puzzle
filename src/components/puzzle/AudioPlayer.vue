@@ -42,7 +42,6 @@ export default {
       });
 
       player.on("play", () => {
-        console.log("play!");
         ctx.emit(Events.PLAY_STARTED_EVENT, player);
       });
     });
