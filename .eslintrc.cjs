@@ -11,4 +11,16 @@ module.exports = {
   env: {
     "vue/setup-compiler-macros": true,
   },
+  overrides: [
+    {
+      files: [
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/*.{spec,test}.{j,t}s?(x)",
+        "**/tests/unit/**/*.test.{j,t}s?(x)"
+      ],
+      env: {
+        jest: true
+      }
+    }
+  ]
 };
