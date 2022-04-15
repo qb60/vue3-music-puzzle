@@ -28,8 +28,8 @@ export default {
     const tracks = ref([]);
     const availableLanguages = ref([]);
 
-    onMounted(() => {
-      const puzzle = fetchPuzzleData();
+    onMounted(async () => {
+      const puzzle = await fetchPuzzleData();
       tracks.value = puzzle.tracks;
       availableLanguages.value.push(...puzzle.languages);
     });

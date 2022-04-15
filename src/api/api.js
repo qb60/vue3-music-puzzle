@@ -1,4 +1,4 @@
-export function fetchPuzzleData() {
+export async function fetchPuzzleData() {
   return {
     languages: [
       "Belorussian",
