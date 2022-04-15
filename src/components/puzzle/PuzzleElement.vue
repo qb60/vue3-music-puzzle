@@ -23,7 +23,7 @@ import { NButton, NDivider, NSelect } from "naive-ui";
 import AudioPlayer from "./AudioPlayer.vue";
 import { ref, watch } from "vue";
 
-export const Events = {
+const Events = {
   LANGUAGE_CHANGED: "language-changed",
 };
 
@@ -44,7 +44,8 @@ export default {
       required: true,
     },
   },
-  emits: [Events.LANGUAGE_CHANGED],
+  events: Events,
+  emits: Object.values(Events),
   setup(_, ctx) {
     const selectedLanguage = ref(null);
 
