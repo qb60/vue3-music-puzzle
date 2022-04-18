@@ -30,7 +30,7 @@ export default {
     },
   },
   emits: [Events.PLAY_STARTED_EVENT],
-  setup(props, ctx) {
+  setup(props, { emit, expose }) {
     const audio = ref(null);
     let player;
 
@@ -42,7 +42,7 @@ export default {
       });
 
       player.on("play", () => {
-        ctx.emit(Events.PLAY_STARTED_EVENT, player);
+        emit(Events.PLAY_STARTED_EVENT, player);
       });
     });
 
@@ -56,12 +56,13 @@ export default {
     });
 
     const stop = () => {
-      player.stop();
+      player.pause();
     };
+
+    expose({ stop });
 
     return {
       audio,
-      stop,
     };
   },
 };

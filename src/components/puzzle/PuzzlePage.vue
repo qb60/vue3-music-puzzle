@@ -1,13 +1,14 @@
 <template>
   <n-card class="puzzle">
-    <div v-for="(track, index) of tracks" :key="track.id">
-      <PuzzleElement
-        :languages="availableLanguages"
-        :track-path="track.path"
-        :number="index"
-        @language-changed="onLanguageChanged"
-      />
-    </div>
+    <PuzzleElement
+      v-for="(track, index) of tracks"
+      :key="track.id"
+      :languages="availableLanguages"
+      :track="track"
+      :number="index"
+      @language-changed="onLanguageChanged"
+      @play-started="onPlayStarted"
+    />
     <div class="flex justify-end">
       <n-button type="success">Submit result</n-button>
     </div>
@@ -48,10 +49,24 @@ export default {
       }
     };
 
+    let currentPlayerStopper = null;
+    const onPlayStarted = (stopPlayer) => {
+      if (currentPlayerStopper === stopPlayer) {
+        return;
+      }
+
+      if (currentPlayerStopper) {
+        currentPlayerStopper();
+      }
+
+      currentPlayerStopper = stopPlayer;
+    };
+
     return {
       tracks,
       availableLanguages,
       onLanguageChanged,
+      onPlayStarted,
     };
   },
 };

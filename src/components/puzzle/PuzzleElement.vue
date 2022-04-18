@@ -1,6 +1,10 @@
 <template>
   <div class="text-center text-lg">Track {{ number + 1 }}</div>
-  <AudioPlayer :src="trackPath" />
+  <AudioPlayer
+    ref="audioPlayer"
+    :src="track.path"
+    @play-started="onPlayStarted"
+  />
   <div class="flex items-center">
     <n-select
       clearable
@@ -25,6 +29,7 @@ import { ref, watch } from "vue";
 
 const Events = {
   LANGUAGE_CHANGED: "language-changed",
+  PLAY_STARTED: "play-started",
 };
 
 export default {
@@ -35,8 +40,8 @@ export default {
       type: Number,
       required: true,
     },
-    trackPath: {
-      type: String,
+    track: {
+      type: Object,
       required: true,
     },
     languages: {
@@ -46,18 +51,30 @@ export default {
   },
   events: Events,
   emits: Object.values(Events),
-  setup(_, ctx) {
+  setup(props, { emit }) {
     const selectedLanguage = ref(null);
 
     watch(selectedLanguage, (newLanguage, oldLanguage) => {
-      ctx.emit(Events.LANGUAGE_CHANGED, newLanguage, oldLanguage);
+      emit(Events.LANGUAGE_CHANGED, newLanguage, oldLanguage);
     });
 
     const onResetButtonClicked = () => {
       selectedLanguage.value = null;
     };
 
-    return { selectedLanguage, onResetButtonClicked };
+    const onPlayStarted = () => emit(Events.PLAY_STARTED, stopPlayer);
+
+    const audioPlayer = ref(null);
+    const stopPlayer = () => {
+      audioPlayer.value.stop();
+    };
+
+    return {
+      selectedLanguage,
+      onResetButtonClicked,
+      audioPlayer,
+      onPlayStarted,
+    };
   },
 };
 </script>
