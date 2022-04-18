@@ -10,7 +10,12 @@
       @play-started="onPlayStarted"
     />
     <div class="flex justify-end">
-      <n-button type="success">Submit result</n-button>
+      <n-button
+        :disabled="!isPuzzleCompleted"
+        type="success"
+        class="submit_button"
+        >Submit result</n-button
+      >
     </div>
   </n-card>
 </template>
@@ -18,7 +23,7 @@
 <script>
 import PuzzleElement from "./PuzzleElement.vue";
 import { NButton, NCard } from "naive-ui";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { fetchPuzzleData } from "../../api/api.js";
 
 export default {
@@ -49,6 +54,10 @@ export default {
       }
     };
 
+    const isPuzzleCompleted = computed(
+      () => availableLanguages.value.length === 0
+    );
+
     let currentPlayerStopper = null;
     const onPlayStarted = (stopPlayer) => {
       if (currentPlayerStopper === stopPlayer) {
@@ -65,6 +74,7 @@ export default {
     return {
       tracks,
       availableLanguages,
+      isPuzzleCompleted,
       onLanguageChanged,
       onPlayStarted,
     };

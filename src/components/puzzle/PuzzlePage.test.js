@@ -4,6 +4,7 @@ import PuzzleElement from "./PuzzleElement.vue";
 import { nextTick } from "vue";
 
 import { fetchPuzzleData } from "../../api/api.js";
+import { NButton } from "naive-ui";
 jest.mock("../../api/api.js");
 
 describe("Language list test", () => {
@@ -29,6 +30,7 @@ describe("Language list test", () => {
       global: {
         stubs: {
           PuzzleElement: true,
+          NButton: true,
         },
       },
     });
@@ -92,5 +94,36 @@ describe("Language list test", () => {
     await nextTick();
 
     expect(stoppingCallback).not.toHaveBeenCalled();
+  });
+
+  it("should disable submit button on mount", () => {
+    const submitButton = wrapper.getComponent(".submit_button");
+
+    expect(submitButton.props()).toHaveProperty("disabled", true);
+  });
+
+  it("should enable submit button after language selection completed", async () => {
+    const submitButton = wrapper.getComponent(".submit_button");
+
+    const puzzleElements = wrapper.findAllComponents(PuzzleElement);
+
+    puzzleElements[0].vm.$emit(
+      PuzzleElement.events.LANGUAGE_CHANGED,
+      lang1,
+      null
+    );
+    puzzleElements[1].vm.$emit(
+      PuzzleElement.events.LANGUAGE_CHANGED,
+      lang2,
+      null
+    );
+    puzzleElements[2].vm.$emit(
+      PuzzleElement.events.LANGUAGE_CHANGED,
+      lang3,
+      null
+    );
+    await nextTick();
+
+    expect(submitButton.props()).toHaveProperty("disabled", false);
   });
 });
