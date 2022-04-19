@@ -1,25 +1,27 @@
 <template>
-  <div class="text-center text-lg">Track {{ number + 1 }}</div>
-  <AudioPlayer
-    ref="audioPlayer"
-    :src="track.path"
-    @play-started="onPlayStarted"
-  />
-  <div class="flex items-center">
-    <n-select
-      clearable
-      placeholder="Select language"
-      v-model:value="selectedLanguage"
-      :options="
-        languages.map((item) => ({
-          label: item,
-          value: item,
-        }))
-      "
+  <div>
+    <div class="text-center text-lg">Track {{ number + 1 }}</div>
+    <AudioPlayer
+      ref="audioPlayer"
+      :src="track.path"
+      @play-started="onPlayStarted"
     />
-    <n-button class="ml-3" @click="onResetButtonClicked">Reset</n-button>
+    <div class="flex items-center">
+      <n-select
+        clearable
+        placeholder="Select language"
+        v-model:value="selectedLanguage"
+        :options="
+          languages.map((item) => ({
+            label: item,
+            value: item,
+          }))
+        "
+      />
+      <n-button class="ml-3" @click="onResetButtonClicked">Reset</n-button>
+    </div>
+    <n-divider />
   </div>
-  <n-divider />
 </template>
 
 <script>

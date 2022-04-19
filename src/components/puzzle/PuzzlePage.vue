@@ -23,7 +23,7 @@
 <script>
 import PuzzleElement from "./PuzzleElement.vue";
 import { NButton, NCard } from "naive-ui";
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { fetchPuzzleData } from "../../api/api.js";
 
 export default {

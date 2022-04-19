@@ -4,7 +4,6 @@ import PuzzleElement from "./PuzzleElement.vue";
 import { nextTick } from "vue";
 
 import { fetchPuzzleData } from "../../api/api.js";
-import { NButton } from "naive-ui";
 jest.mock("../../api/api.js");
 
 describe("Language list test", () => {
