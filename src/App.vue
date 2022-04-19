@@ -2,8 +2,9 @@
   <n-config-provider :theme="theme" :theme-overrides="themeOverrides">
     <div class="app flex justify-center mx-0 sm:mx-6">
       <div class="flex-1 max-w-5xl">
-        <main-header v-model="isDarkTheme" />
+        <MainHeader v-model="isDarkTheme" />
         <PuzzlePage />
+        <MainFooter></MainFooter>
       </div>
     </div>
     <n-global-style />
@@ -16,6 +17,7 @@ import { darkTheme, NConfigProvider, NGlobalStyle } from "naive-ui";
 
 import MainHeader from "./components/MainHeader.vue";
 import PuzzlePage from "./components/puzzle/PuzzlePage.vue";
+import MainFooter from "./components/MainFooter.vue";
 
 /**
  * Use this for type hints under js file
@@ -33,6 +35,7 @@ export default {
     NConfigProvider,
     NGlobalStyle,
     MainHeader,
+    MainFooter,
     PuzzlePage,
   },
   setup() {
