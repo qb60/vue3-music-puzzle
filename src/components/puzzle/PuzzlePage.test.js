@@ -37,6 +37,10 @@ describe("Language list test", () => {
     await flushPromises();
   });
 
+  afterAll(() => {
+    wrapper.destroy();
+  });
+
   it("should remove language from available after it chosen", async () => {
     const puzzleElement = wrapper.getComponent(PuzzleElement);
 
